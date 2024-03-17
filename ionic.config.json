@@ -1,0 +1,8 @@
+{
+  "name": "hanmaster",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "ad0720c7"
+}
