@@ -1,0 +1,15 @@
+.button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .button-group ion-button {
+    flex-grow: 1;
+    margin: 0 5px;
+  }
+  
+  /* 调整画布样式 */
+  .react-canvas-draw {
+    margin-bottom: 20px; /* 根据需要调整 */
+  }
+  
