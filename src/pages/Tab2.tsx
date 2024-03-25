@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Stage, Layer, Line } from 'react-konva';
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { Stage, Layer, Line, Rect } from 'react-konva';
 import './Tab2.css';
 import {
   IonButton, IonContent, IonFooter, IonHeader,
@@ -7,9 +7,31 @@ import {
 } from '@ionic/react';
 import { menuController } from '@ionic/core/components';
 
-function DrawingCanvas() {
+
+const DrawingCanvas = forwardRef((props, ref) => {
   const [lines, setLines] = useState([]);
+  const [dimensions, setDimensions] = useState({ width: window.innerWidth * 0.9, height: window.innerHeight - 200 });
   const isDrawing = useRef(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setDimensions({
+        width: window.innerWidth * 0.9,
+        height: window.innerHeight - 200
+      });
+    };
+
+    window.addEventListener('resize', updateSize);
+    updateSize();
+
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    clear() {
+      setLines([]);
+    }
+  }));
 
   const handleMouseDown = (e) => {
     isDrawing.current = true;
@@ -24,10 +46,7 @@ function DrawingCanvas() {
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
     let lastLine = lines[lines.length - 1];
-    // add point
     lastLine.points = lastLine.points.concat([point.x, point.y]);
-
-    // replace last
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
   };
@@ -38,8 +57,8 @@ function DrawingCanvas() {
 
   return (
     <Stage
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={dimensions.width}
+      height={dimensions.height}
       onMouseDown={handleMouseDown}
       onMousemove={handleMouseMove}
       onMouseup={handleMouseUp}
@@ -48,11 +67,18 @@ function DrawingCanvas() {
       onTouchEnd={handleMouseUp}
     >
       <Layer>
+        <Rect
+          x={0}
+          y={0}
+          width={dimensions.width}
+          height={dimensions.height}
+          fill="#f0f0f0" 
+        />
         {lines.map((line, i) => (
           <Line
             key={i}
             points={line.points}
-            stroke="#df4b26"
+            stroke="black"
             strokeWidth={5}
             tension={0.5}
             lineCap="round"
@@ -62,7 +88,7 @@ function DrawingCanvas() {
       </Layer>
     </Stage>
   );
-}
+});
 
 
 
@@ -79,6 +105,10 @@ function Tab2() {
 
   async function openEndMenu() {
     await menuController.open('end');
+  }
+
+  function clearCanvas() {
+    canvasRef.current.clear();
   }
 
   return (
@@ -117,7 +147,7 @@ function Tab2() {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-        <DrawingCanvas />
+        <DrawingCanvas ref={canvasRef} />
         </IonContent>
         <IonFooter>
           <div className="button-group">
@@ -127,8 +157,8 @@ function Tab2() {
             <IonButton expand="block" onClick={openSecondMenu}>
               画布工具
             </IonButton>
-            <IonButton expand="block" onClick={openEndMenu}>
-              Open End Menu
+            <IonButton expand="block" onClick={clearCanvas}>
+              清空画布
             </IonButton>
           </div>
         </IonFooter>
