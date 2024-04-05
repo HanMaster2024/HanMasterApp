@@ -1,0 +1,30 @@
+#page-content-warp {
+  --background: #1c1c1c;
+  --color: #fff;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page-content .list-box {
+  width: calc(50% - 10px);
+  /* height: 200px */
+  /* border: 1px solid red; */
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-content .list-box ion-icon {
+  color: #00618a;
+  width: 160px;
+  height: 160px;
+}
