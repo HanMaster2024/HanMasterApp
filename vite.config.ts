@@ -12,5 +12,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
-  }
-})
+  },
+  server: {
+    sourcemap: 'hidden', // 设置为 hidden 类型
+  },})

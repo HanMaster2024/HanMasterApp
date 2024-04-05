@@ -1,35 +1,51 @@
-import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
-import { Stage, Layer, Line, Rect } from 'react-konva';
-import './Tab2.css';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import { Stage, Layer, Line, Rect } from "react-konva";
+import "./Tab2.css";
 import {
-  IonButton, IonContent, IonFooter, IonHeader,
-  IonMenu, IonPage, IonTitle, IonToolbar, IonRange
-} from '@ionic/react';
-import { menuController } from '@ionic/core/components';
+  IonButton,
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonMenu,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonRange,
+} from "@ionic/react";
+import { menuController } from "@ionic/core/components";
 
-const DrawingCanvas = forwardRef(({lineWidth}, ref) => {
+const DrawingCanvas = forwardRef(({ lineWidth }, ref) => {
   const [lines, setLines] = useState([]);
-  const [dimensions, setDimensions] = useState({ width: window.innerWidth * 0.98, height: window.innerHeight - 200 });
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth - 32,
+    height: window.innerHeight - 200,
+  });
   const isDrawing = useRef(false);
 
   useEffect(() => {
     const updateSize = () => {
       setDimensions({
-        width: window.innerWidth * 0.98,
-        height: window.innerHeight - 200
+        width: window.innerWidth - 32,
+        height: window.innerHeight - 200,
       });
     };
 
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
     updateSize();
 
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
 
   useImperativeHandle(ref, () => ({
     clear() {
       setLines([]);
-    }
+    },
   }));
 
   const handleMouseDown = (e) => {
@@ -73,7 +89,7 @@ const DrawingCanvas = forwardRef(({lineWidth}, ref) => {
           y={0}
           width={dimensions.width}
           height={dimensions.height}
-          fill="#f0f0f0" 
+          fill="#f0f0f0"
         />
         {lines.map((line, i) => (
           <Line
@@ -96,15 +112,15 @@ function Tab2() {
   const [lineWidth, setLineWidth] = useState(5); // Default line width
 
   async function openFirstMenu() {
-    await menuController.open('first-menu');
+    await menuController.open("first-menu");
   }
 
   async function openSecondMenu() {
-    await menuController.open('second-menu');
+    await menuController.open("second-menu");
   }
 
   async function openEndMenu() {
-    await menuController.open('end');
+    await menuController.open("end");
   }
 
   function clearCanvas() {
@@ -112,63 +128,69 @@ function Tab2() {
   }
 
   return (
-    <>
+    <IonPage id="main-content">
+      <IonHeader>
+        <IonToolbar className="toolbar-title">
+          <IonTitle>创作模式</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonMenu menuId="first-menu" contentId="main-content">
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>First Menu</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <IonToolbar className="toolbar-title">
+          <IonTitle>First Menu</IonTitle>
+        </IonToolbar>
+
         <IonContent className="ion-padding">
           {/* Slider to adjust line width */}
-          <IonRange min={1} max={10} step={1} value={lineWidth} onIonChange={e => setLineWidth(e.detail.value)} pin={true}>
-<IonTitle size="small">线条粗细: {lineWidth}</IonTitle>
-</IonRange>
-</IonContent>
-</IonMenu>
-<IonMenu menuId="second-menu" contentId="main-content">
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Second Menu</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent className="ion-padding">This is the second menu content.</IonContent>
-  </IonMenu>
+          <IonRange
+            min={1}
+            max={10}
+            step={1}
+            value={lineWidth}
+            onIonChange={(e) => setLineWidth(e.detail.value)}
+            pin={true}
+          >
+            <IonTitle size="small">线条粗细: {lineWidth}</IonTitle>
+          </IonRange>
+        </IonContent>
+      </IonMenu>
+      <IonMenu menuId="second-menu" contentId="main-content">
+        <IonToolbar>
+          <IonTitle>Second Menu</IonTitle>
+        </IonToolbar>
 
-  <IonMenu menuId="end" contentId="main-content">
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>End Menu</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent className="ion-padding">This is the end menu content.</IonContent>
-  </IonMenu>
+        <IonContent className="ion-padding">
+          This is the second menu content.
+        </IonContent>
+      </IonMenu>
 
-  <IonPage id="main-content">
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>创作模式</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent className="ion-padding">
-      <DrawingCanvas ref={canvasRef} lineWidth={lineWidth} />
-    </IonContent>
-    <IonFooter>
-      <div className="button-group">
-        <IonButton expand="block" onClick={openFirstMenu}>
-          画笔工具
-        </IonButton>
-        <IonButton expand="block" onClick={openSecondMenu}>
-          画布工具
-        </IonButton>
-        <IonButton expand="block" onClick={clearCanvas}>
-          清空画布
-        </IonButton>
-      </div>
-    </IonFooter>
-  </IonPage>
-</>
-);
+      <IonMenu menuId="end" contentId="main-content">
+        <IonToolbar>
+          <IonTitle>End Menu</IonTitle>
+        </IonToolbar>
+
+        <IonContent className="ion-padding">
+          This is the end menu content.
+        </IonContent>
+      </IonMenu>
+
+      <IonContent className="ion-padding">
+        <DrawingCanvas ref={canvasRef} lineWidth={lineWidth} />
+      </IonContent>
+      <IonFooter>
+        <div className="button-group">
+          <IonButton expand="block" onClick={openFirstMenu}>
+            画笔工具
+          </IonButton>
+          <IonButton expand="block" onClick={openSecondMenu}>
+            画布工具
+          </IonButton>
+          <IonButton expand="block" onClick={clearCanvas}>
+            清空画布
+          </IonButton>
+        </div>
+      </IonFooter>
+    </IonPage>
+  );
 }
 
 export default Tab2;

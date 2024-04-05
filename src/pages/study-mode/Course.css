@@ -1,0 +1,43 @@
+#course {
+  --background: #1c1c1c; 
+  --color: #fff;
+}
+
+#course .swiper .swiper-wrapper .swiper-slide .content-wrap .voice-wrap {
+  margin: 20px 0;
+  display: flex;
+}
+
+#course .swiper .swiper-wrapper .swiper-slide .content-wrap img {
+  margin-left: 20px;
+}
+
+#course .swiper .swiper-wrapper .swiper-slide .content-wrap .voice {
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#course .swiper .swiper-wrapper .swiper-slide .content-wrap .voice_icon {
+  background-color: #ffcd00;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: 25px;
+}
+
+#course
+  .swiper
+  .swiper-wrapper
+  .swiper-slide
+  .content-wrap
+  .voice_icon
+  .voice_pinyin {
+  margin-left: 10px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}

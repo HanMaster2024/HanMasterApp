@@ -26,11 +26,14 @@
     "formidable": "^2.1.2",
     "ionicons": "^7.0.0",
     "konva": "^9.3.6",
+    "pinyin-pro": "^3.19.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-konva": "^18.2.10",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
+    "swiper": "^11.1.0",
+    "use-image": "^1.1.1",
     "web3": "^4.6.0"
   },
   "devDependencies": {
