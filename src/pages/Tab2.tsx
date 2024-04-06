@@ -12,6 +12,7 @@ import {
   IonMenu, IonPage, IonTitle, IonToolbar, IonRange, IonItem, IonLabel
 } from '@ionic/react';
 import { menuController } from '@ionic/core/components';
+import Konva from "konva";
 
 
 interface DrawingCanvasProps {
@@ -30,6 +31,9 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWi
 
   const [dimensions, setDimensions] = useState({ width: window.innerWidth - 32, height: window.innerHeight - 180 });
   const isDrawing = useRef(false);
+
+  const stageRef = useRef<Konva.Stage>(null);
+
 
 
 
@@ -51,7 +55,16 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWi
     clear() {
       setLines([]);
     },
+    // 暴露toDataURL方法
+    toDataURL() {
+      return stageRef.current?.toDataURL();
+    },
+    // 或者，如果你想暴露更多方法，可以直接返回stage实例
+    getStage() {
+      return stageRef.current;
+    }
   }));
+  
 
   const handleMouseDown = (e: any) => {
     isDrawing.current = true;
@@ -82,6 +95,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWi
   
   return (
     <Stage
+    ref={stageRef}
       width={dimensions.width}
       height={dimensions.height}
       onMouseDown={handleMouseDown}
@@ -117,7 +131,8 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWi
 });
 
 function Tab2() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<Konva.Stage>(null);
+  
   const [lineWidth, setLineWidth] = useState(5); // Default line width
   const [lineColor, setLineColor] = useState('#000000'); // Default line color is black
 
@@ -138,6 +153,27 @@ function Tab2() {
   function clearCanvas() {
     (canvasRef.current as any)?.clear();
   }
+
+  function saveCanvas() {
+    // 如果你暴露了toDataURL方法
+    const dataURL = canvasRef.current?.toDataURL();
+    
+    // 如果你暴露了getStage方法
+    // const stage = canvasRef.current?.getStage();
+    // const dataURL = stage?.toDataURL();
+  
+    if (dataURL) {
+      const savedImages = JSON.parse(localStorage.getItem("savedDrawings") || "[]");
+      savedImages.push(dataURL);
+      localStorage.setItem("savedDrawings", JSON.stringify(savedImages));
+  
+      alert('画布已保存到图库！');
+    } else {
+      alert('无法保存画布：画布引用丢失或方法不可用。');
+    }
+  }
+  
+  
 
 
   return (
@@ -211,15 +247,18 @@ function Tab2() {
         </IonContent>
         <IonFooter>
           <div className="button-group">
-            <IonButton expand="block" onClick={openFirstMenu}>
+            <IonButton expand="block" onClick={openFirstMenu} className="button">
               画笔工具
             </IonButton>
-            <IonButton expand="block" onClick={openSecondMenu}>
+            <IonButton expand="block" onClick={openSecondMenu} className="button">
               画布工具
             </IonButton>
-            <IonButton expand="block" onClick={clearCanvas}>
+            <IonButton expand="block" onClick={clearCanvas} className="button">
               清空画布
             </IonButton>
+            <IonButton expand="block" onClick={saveCanvas} className="button">
+            保存到图库
+          </IonButton>
           </div>
         </IonFooter>
       </IonPage>
