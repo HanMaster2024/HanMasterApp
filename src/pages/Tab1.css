@@ -1,5 +1,5 @@
 #study-mode .list-header-wrap {
-  background: #1c1c1c; 
+  background: #1c1c1c;
   padding: 0 1rem;
 }
 
@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2a2a2a ;
+  background: #2a2a2a;
   border-radius: 1.4rem;
   height: 6rem;
   padding: 36px;
@@ -36,15 +36,27 @@
   --color: #fff;
 }
 
-#study-mode .list-content {
+#study-mode .list-content-wrap ion-list {
+  background: transparent;
+}
+
+#study-mode .list-content-wrap .list-content-title {
+  background: #1c1c1c;
+  margin: 15px 0;
+  display: block;
+  font-size: 28px;
+  padding-left: 16px;
+}
+
+#study-mode .list-content-wrap .list-content {
   display: flex;
   flex-wrap: wrap;
   background: #1c1c1c;
 }
 
-#study-mode .list-content .list-box {
+#study-mode .list-content-wrap .list-content .list-box {
   width: calc(50% - 10px);
-  height: 200px;
+  /* height: 200px; */
   /* border: 1px solid red; */
   margin: 4px;
   display: flex;
@@ -52,7 +64,7 @@
   align-items: center;
 }
 
-#study-mode .list-content .list-box .ios.icon-large {
+#study-mode .list-content-wrap .list-content .list-box ion-icon {
   color: #00618a;
   width: 160px;
   height: 160px;

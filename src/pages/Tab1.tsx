@@ -54,8 +54,8 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="list-content-wrap">
-        <IonText color="primary">
-          <h1>今日博学</h1>
+        <IonText color="primary" class="list-content-title">
+          今日博学
         </IonText>
         <IonList>
           <div className="list-header-wrap">
