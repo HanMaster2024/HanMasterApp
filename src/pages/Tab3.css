@@ -1,0 +1,22 @@
+#my ion-content {
+  --background: #1c1c1c;
+}
+
+#my ion-content ion-card {
+  --background: #2a2a2a;
+  --color: #ffffff;
+}
+
+#my ion-content ion-card ion-card-title {
+  --color: #ffffff;
+}
+
+#my ion-content ion-card ion-card-subtitle {
+  --color: #ffffff;
+}
+
+#my ion-content ion-item {
+  --background: #2a2a2a;
+  --color: #ffffff;
+  --border-color: #2a2a2a;
+}
