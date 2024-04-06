@@ -8,6 +8,7 @@ import {
   IonIcon,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as swiper } from "swiper";
 import "swiper/css";
 import { volumeHighOutline, volumeHigh } from "ionicons/icons";
 import "./Course.css";
@@ -22,8 +23,6 @@ import { Stage, Layer, Line, Rect, Image } from "react-konva";
 import useImage from "use-image";
 import { pinyin } from "pinyin-pro";
 
-type Event = React.MouseEvent<HTMLButtonElement>;
-
 type Slide = {
   img: string;
   audio: string;
@@ -36,6 +35,8 @@ export interface IProps {
   title: string;
   slides: Slide[];
 }
+
+let swiperContext: swiper | null = null;
 
 // 画布
 const SquareWithGrid = ({ img }) => {
@@ -51,7 +52,10 @@ const SquareWithGrid = ({ img }) => {
   const strokeWidth = 1;
 
   const handleMouseDown = (e) => {
-    e.evt.stopPropagation();
+    if (swiperContext) {
+      swiperContext.allowSlideNext = false;
+      swiperContext.allowSlidePrev = false;
+    }
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { points: [pos.x, pos.y] }]);
@@ -71,6 +75,10 @@ const SquareWithGrid = ({ img }) => {
   };
 
   const handleMouseUp = () => {
+    if (swiperContext) {
+      swiperContext.allowSlideNext = true;
+      swiperContext.allowSlidePrev = true;
+    }
     isDrawing.current = false;
   };
 
@@ -222,41 +230,44 @@ const Page: React.FC<IProps> = ({ title, slides }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent id="course" class="ion-padding">
-        <Swiper>
-          {slides.map((slide: Slide, index: number) => {
-            return (
-              <SwiperSlide key={index}>
-                <div className="content-wrap">
-                  <SquareWithGrid key={index} img={slide.img} />
-                  <div className="voice-wrap">
-                    <span className="voice">
-                      <div
-                        onClick={() => playAudio(index)}
-                        className="voice_icon"
-                      >
-                        <IonIcon
-                          icon={isPlaying ? volumeHigh : volumeHighOutline}
-                          size="large"
-                        ></IonIcon>
-                        <audio
-                          hidden
-                          ref={audioRefs[index]}
-                          src={slide.audio}
-                        ></audio>
-                        <div className="voice_pinyin">
-                          {pinyin(slide.voiceName)}
-                        </div>
+        {/* <Swiper allowSlideNext={allowSlideNext} allowSlidePrev={allowSlidePrev}> */}
+        <Swiper
+          onSwiper={(swipeInstance) => {
+            swiperContext = swipeInstance;
+          }}
+        >
+          {slides.map((slide: Slide, index: number) => (
+            <SwiperSlide key={index}>
+              <div className="content-wrap">
+                <SquareWithGrid key={index} img={slide.img} />
+                <div className="voice-wrap">
+                  <span className="voice">
+                    <div
+                      onClick={() => playAudio(index)}
+                      className="voice_icon"
+                    >
+                      <IonIcon
+                        icon={isPlaying ? volumeHigh : volumeHighOutline}
+                        size="large"
+                      ></IonIcon>
+                      <audio
+                        hidden
+                        ref={audioRefs[index]}
+                        src={slide.audio}
+                      ></audio>
+                      <div className="voice_pinyin">
+                        {pinyin(slide.voiceName)}
                       </div>
-                    </span>
-                    <img src={slide.gif} alt="" width="60" />
-                  </div>
-                  <div className="example">
-                    <slide.example />
-                  </div>
+                    </div>
+                  </span>
+                  <img src={slide.gif} alt="" width="60" />
                 </div>
-              </SwiperSlide>
-            );
-          })}
+                <div className="example">
+                  <slide.example />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </IonContent>
     </>

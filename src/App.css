@@ -8,3 +8,21 @@
   color: #fff;
 }
 
+.tabs-inner ion-menu {
+  --background: #1c1c1c;
+  --color: #ffffff;
+}
+
+.tabs-inner ion-menu ion-button {
+  --color: #1c1c1c;
+}
+
+.tabs-inner ion-menu ion-header ion-toolbar ion-title {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+.tabs-inner ion-menu ion-content {
+  --background: #1c1c1c;
+  --color: #ffffff;
+}

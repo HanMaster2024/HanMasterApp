@@ -1,5 +1,5 @@
 #course {
-  --background: #1c1c1c; 
+  --background: #1c1c1c;
   --color: #fff;
 }
 
@@ -35,9 +35,4 @@
   .voice_icon
   .voice_pinyin {
   margin-left: 10px;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
 }

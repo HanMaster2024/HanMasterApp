@@ -28,7 +28,7 @@ interface DrawingCanvasRef {
 const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWidth, lineColor }, ref) => {
   const [lines, setLines] = useState<{ points: number[], lineWidth: any, color: any }[]>([]);
 
-  const [dimensions, setDimensions] = useState({ width: window.innerWidth * 0.98, height: window.innerHeight - 180 });
+  const [dimensions, setDimensions] = useState({ width: window.innerWidth - 32, height: window.innerHeight - 180 });
   const isDrawing = useRef(false);
 
 
@@ -36,7 +36,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasRef, DrawingCanvasProps>(({ lineWi
   useEffect(() => {
     const updateSize = () => {
       setDimensions({
-        width: window.innerWidth * 0.98,
+        width: window.innerWidth - 32,
         height: window.innerHeight - 180
       });
     };
