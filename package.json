@@ -21,6 +21,7 @@
     "@capacitor/status-bar": "5.0.7",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
+    "@solana/web3.js": "^1.91.4",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "formidable": "^2.1.2",
@@ -33,10 +34,10 @@
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "swiper": "^11.1.0",
-    "use-image": "^1.1.1",
-    "web3": "^4.6.0"
+    "use-image": "^1.1.1"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "5.7.3",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
