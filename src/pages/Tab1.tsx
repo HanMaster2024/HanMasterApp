@@ -49,7 +49,7 @@ const Tab1: React.FC = () => {
   return (
     <IonPage id="study-mode">
       <IonHeader>
-        <IonToolbar className="toolbar-title ">
+        <IonToolbar className="toolbar-title">
           <IonTitle>Han Master</IonTitle>
         </IonToolbar>
       </IonHeader>

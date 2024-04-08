@@ -67,15 +67,18 @@ const App: React.FC = () => (
             </IonRouterOutlet>
             <IonTabBar slot="bottom" className="tab_bar">
               <IonTabButton tab="tab1" href="/tab1">
-                <IonIcon aria-hidden="true" icon={home} />
+                {/* <IonIcon aria-hidden="true" icon={home} /> */}
+                <IonIcon aria-hidden="true" src="/img/learn.svg" />
                 <IonLabel>学习模式</IonLabel>
               </IonTabButton>
               <IonTabButton tab="tab2" href="/tab2">
-                <IonIcon aria-hidden="true" icon={createOutline} />
+                {/* <IonIcon aria-hidden="true" icon={createOutline} /> */}
+                <IonIcon aria-hidden="true" src="/img/create.svg" />
                 <IonLabel>创作模式</IonLabel>
               </IonTabButton>
               <IonTabButton tab="tab3" href="/tab3">
-                <IonIcon aria-hidden="true" icon={cogOutline} />
+                {/* <IonIcon aria-hidden="true" icon={cogOutline} /> */}
+                <IonIcon aria-hidden="true" src="/img/my.svg" />
                 <IonLabel>我的</IonLabel>
               </IonTabButton>
             </IonTabBar>

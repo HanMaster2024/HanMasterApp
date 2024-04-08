@@ -189,7 +189,7 @@ function Tab2() {
 </IonButton>
 
         <IonHeader>
-          <IonToolbar>
+          <IonToolbar className="toolbar-title">
             <IonTitle>画笔工具</IonTitle>
           </IonToolbar>
         </IonHeader>
@@ -219,7 +219,7 @@ function Tab2() {
 
       <IonMenu menuId="second-menu" contentId="main-content">
         <IonHeader>
-          <IonToolbar>
+          <IonToolbar className="toolbar-title">
             <IonTitle>画布工具</IonTitle>
           </IonToolbar>
         </IonHeader>
@@ -228,7 +228,7 @@ function Tab2() {
 
       <IonMenu menuId="end" contentId="main-content">
         <IonHeader>
-          <IonToolbar>
+          <IonToolbar className="toolbar-title">
             <IonTitle>End Menu</IonTitle>
           </IonToolbar>
         </IonHeader>
